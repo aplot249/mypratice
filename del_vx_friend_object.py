@@ -11,9 +11,8 @@ class DelvxFriend:
     def __init__(self):
         self.connector = u2.connect(DelvxFriend.get_device_id())
 
-    @classmethod
-    def output_tip(cls):
-        cls.tip = '''
+    def output_tip(self):
+        self.tip = '''
 欢迎使用本程序！
 本程序根据python uiautomator自动化测试，实现程序模拟人工删除微信好友的操作。
 程序本身并非对微信数据进行抓包，所以完全不用担心有封号风险，借助本程序，可以实现批量删除微信好友。
@@ -27,9 +26,7 @@ class DelvxFriend:
 2、回到电脑端，确保adb运行环境配置正确，本目录下的adb.exe文件所在的目录一般会放在系统环境变量中。
 3、以上1、2步配置完成后，程序运行环境就算配置完成。过程中遇到问题联系作者VX：ww1010351486。
                 '''
-        print(cls.tip)
-        cls.del_friend_tag = input("你需要都删除哪个标签下的好友（输入标签名）：")
-        return cls()
+        print(self.tip)
 
     @staticmethod
     def get_device_id():
@@ -39,21 +36,26 @@ class DelvxFriend:
         except:
             print("没检测到adb运行环境！程序已退出。")
 
-    def run(self):
+    def beforeloop(self):
+        self.output_tip()
         print("tips：请确保标签名一定输出正确，否则可能造成误删好友。")
         print("程序正在执行。。。")
         self.connector.press("home")
         self.connector.session("com.tencent.mm")
         self.connector(text="通讯录").click()
-        self.connector(resourceId="com.tencent.mm:id/fx", text="标签").click()
 
+
+    def loop(self):
+        self.connector(resourceId="com.tencent.mm:id/fx", text="标签").click()
+        DelvxFriend.del_friend_tag = input("你需要都删除哪个标签下的好友（输入标签名）：")
         while True:
             self.connector(scrollable=True).fling()
             if self.connector(text=DelvxFriend.del_friend_tag).exists:
                 self.connector(text=DelvxFriend.del_friend_tag).click()
             else:
                 break
-            self.connector.xpath('//*[@resource-id="android:id/list"]/android.widget.LinearLayout[4]/android.widget.RelativeLayout[1]/android.widget.ImageView[1]').click()
+            self.connector.xpath(
+                '//*[@resource-id="android:id/list"]/android.widget.LinearLayout[4]/android.widget.RelativeLayout[1]/android.widget.ImageView[1]').click()
             time.sleep(1)
             if self.connector.xpath('//*[@resource-id="com.tencent.mm:id/b4d"]').exists and self.connector.xpath(
                     '//*[@resource-id="com.tencent.mm:id/b4d"]').text == '从群里导入':
@@ -68,6 +70,10 @@ class DelvxFriend:
                 DelvxFriend._Count = DelvxFriend._Count + 1
                 time.sleep(2)
 
+    def run(self):
+        self.beforeloop()
+        self.loop()
+
     def result(self):
         if DelvxFriend._Count == 0:
             print(f"此标签【{DelvxFriend.del_friend_tag}】下没有好友！")
@@ -80,6 +86,6 @@ class DelvxFriend:
 
 
 if __name__ == '__main__':
-    delvxfriend = DelvxFriend.output_tip()
+    delvxfriend = DelvxFriend()
     delvxfriend.run()
     delvxfriend.result()

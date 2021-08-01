@@ -1,0 +1,33 @@
+<!-- 全局组件使用 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="./vue.js"></script>
+</head>
+<body>
+	<div id="app"></div>
+</body>
+<script>
+	vm = Vue.createApp({
+		data(){
+			return {
+				name:"liusrui"
+			}
+		},
+		template:`
+			<h2>{{name}}</h2>
+			<component1 />
+			<component2 />
+		`,
+	}),
+	vm.component("component1",{
+		template:"<h5>这是子元素1</h5>"
+	}),
+	vm.component("component2",{
+		template:"<h5>这是子元素2</h5>"
+	}),
+	vm.mount("#app")
+</script>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="app">
+		<p><span>输入：</span><input type="text" v-model="input_str" @keyup.enter="insert"></p>
+		<hr>
+		<ul>
+			<li v-for="(value,index) in list">
+				<input type="checkbox" v-model="value.checked" @change="changeitem">
+				{{value.title}}
+				<span>
+					<button @click="delkey(index)">点我删除</button>
+				</span>
+			</li>
+		</ul>
+<!-- 		<hr>
+		<h3>正在进行：</h3>
+		<ul>
+			<li v-for="ll in list" v-show="ll.checked == true">{{ll.title}}</li>
+		</ul>
+		<hr>
+		<h3>已经完成：</h3>
+		<ul>
+			<li v-for="ll in list" v-show="ll.checked == false">{{ll.title}}</li>
+		</ul> -->
+		<hr>
+		<h3>正在进行：</h3>
+		<ul>
+			<template v-for="ll in list">
+				<li  v-if="ll.checked">{{ll.title}}</li>
+			</template>
+		</ul>
+		<hr>
+		<h3>已经完成：</h3>
+		<ul>
+			<template v-for="ll in list">
+				<li  v-if="!ll.checked">{{ll.title}}</li>
+			</template>
+		</ul>
+	</div>
+</body>
+<script src="vue.js"></script>
+<script>
+vm = Vue.createApp({
+	data(){
+		return {
+			input_str:"",
+			list:[],
+		}
+	},
+	methods:{
+		insert(){
+			this.list.push({'title':this.input_str,'checked':false});
+			this.input_str = '';
+			localStorage.setItem('mylist',JSON.stringify(this.list));
+		},
+		delkey(index){
+			this.list.splice(index,1);
+			localStorage.setItem('mylist',JSON.stringify(this.list));
+		},
+		changeitem(){
+			localStorage.setItem('mylist',JSON.stringify(this.list));
+		}
+	},
+	mounted(){
+		let mylist = JSON.parse(localStorage.getItem('mylist'))
+		if(mylist){
+			this.list = mylist
+		}
+	}
+})
+mm = vm.mount("#app")
+</script>
+</html>

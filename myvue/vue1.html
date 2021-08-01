@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hjkhjkhk</title>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+</body>
+<script>
+    var vm = Vue.createApp({
+    	data(){
+    		return {
+    			name : '哈哈',
+    			isshow:false,
+    			inputstr:'',
+    			list:["322","232","545","432"]
+    		}
+    	},
+    	mounted(){	
+    		alert("hkjhkjhkj")
+    	},
+    	methods:{
+    		button1(){
+    			this.name = "垦利街道非绝对是"//alert("点击了button1")
+    		},
+    		button2(){
+    			this.name = "djfkhjkh"//alert("点击了button2")
+    		},
+    		button3(){
+    			this.isshow = ! this.isshow
+    		},
+    		button4(){
+    			this.list.push("erere")
+    		},
+    	},
+        template: `<div>
+        	<div>{{name}}</div>
+        	<div>{{inputstr}}</div>
+        	<div v-if="isshow">jhjkhjkhkjhkhk</div>
+     		<ul><li v-for="(ll,index) of list">{{index}}--{{ll}}</li></ul>
+			<button v-on:click="button1">点我1</button>			
+			<button @click="button2">点我2</button>
+			<button @click="button3">点我3</button>
+			<button @click="button4">点我4</button>
+			<input type="text" v-model="inputstr"/>
+			</div>`
+    })
+    vm.mount("#app")
+</script>
+</html>

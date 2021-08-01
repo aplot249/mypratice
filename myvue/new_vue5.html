@@ -1,0 +1,41 @@
+<!-- 计算属性和普通方法的区别 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="app">
+		<p>名字：{{name}}</p>
+		<hr>
+		<p>用计算属性得到的：{{fun1}}</p>
+		<p>用普通方法得到的：{{fun2()}}</p>
+		<button @click="changename">点我更改名字</button>
+	</div>
+</body>
+<script src="vue.js"></script>
+<script>
+vm = Vue.createApp({
+	data(){
+		return {
+			name:"张飞",
+		}
+	},
+	computed:{
+		fun1(){
+			return Date.now()
+		}
+	},
+	methods:{
+		fun2(){
+			return Date.now()
+		},
+		changename(){
+			this.name = this.name.split("").reverse("").join("")
+		}
+	}
+})
+mm = vm.mount("#app")
+</script>
+</html>

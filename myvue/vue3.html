@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo19</title>
+    <script src="https://unpkg.com/vue@next" ></script>
+</head>
+<body>
+    <div id="app"></div>
+</body>
+<script>
+    const app=Vue.createApp({ 
+    data(){
+        return{
+            count:0
+        }
+    },
+    methods:{
+        addCountClick(){
+            this.count++
+        },
+        handleBtnClick1(){
+            alert(1)
+        },
+    },
+    template:`
+        <div @click="handleBtnClick1">
+            <div>目前已点佳丽数量{{count}}.</div>
+            <button @click="addCountClick">增加一位佳丽</button>
+       </div>
+        ` 
+    }) 
+    const vm=app.mount("#app")
+
+</script>
+
+</html>

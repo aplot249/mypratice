@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>h75473</title>
+    <script src="vue.js"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+</body>
+<script>
+    var vm = Vue.createApp({
+    	data(){
+    		return {
+    			name : '哈哈',
+                event:'click',
+                myhtml:"<h2>jahjkhfkr</h2>",
+                list:['weee','xdddd','ewrwer','wrfggf','sdsdee','ytyty','ewettr']
+    		}
+    	},
+        methods:{
+            button1(){
+                this.myhtml = this.myhtml == "<h5>今飞凯达会尽快哈</h5>" ? "ruyueyruiyei" : "<h5>今飞凯达会尽快哈</h5>"
+            }
+        },
+    	mounted(){	
+    		alert("hkjhkjhkj")
+    	},
+        template: `<div>
+        	<div>{{name}}</div>
+            <div v-html="myhtml"></div>
+            <h2 
+                @[event]="button1"
+                :[name]="name"
+            >{{name}}</h2>
+			<button @click="button1">点我</button>
+            <ul>
+                <componentname1 
+                    v-for="(ll,index) of list" 
+                    v-bind:ll="ll"
+                    v-bind:index="index"
+                />
+            </ul>
+            </div>
+            `
+    })
+    vm.component('componentname1',{
+            props:["ll","index"],
+            template:`
+                <li>{{index}}--{{ll}}</li>        
+            `, 
+    })
+
+
+    vm.mount("#app")
+</script>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="vue.js"></script>
+</head>
+<body>
+	<div id="app"></div>
+</body>
+<script>
+	vm = Vue.createApp({
+		data(){
+			return {
+				name:"什么名字",
+				list:["322","232","545","432"]
+			}
+		},
+		template:`
+			<div>
+			<h3>{{name}}</h3>
+			<div>
+				<component1>
+					<template v-slot:one>这是插槽1</template>
+					给插槽赋值
+					<template #two>这是插槽2</template>
+				</component1>
+				<hr />
+				<component3>
+					<component2 />
+				</component3>
+				<hr />
+				<component3 v-slot="props">		//这里props这是插槽的别名
+					<span>{{props.index}}</span>
+				</component3>
+				<hr />
+				<component3 v-slot:ccname="alias">
+					<span>{{alias.index}}</span>
+				</component3>
+			</div>
+			</div>
+		`,
+	})
+	vm.component('component1',{
+		template:`
+			<slot name="one"></slot>
+			<h3>上下都是插槽</h3>
+			<slot name="two"></slot>
+		`,
+	})
+	vm.component('component2',{
+		template:`
+			<h3>这是子元素</h3>
+		`,
+	})
+	vm.component('component3',{
+		data(){
+			return {
+				list:[5,2,7,1,9],
+			}
+		},
+		template:`
+			<h3>这是chacao3</h3>
+			<ul>
+				<slot name="ccname" v-for="index in list" v-bind:index="index" />
+			</ul>
+		`,
+	})
+	vm.mount("#app")
+</script>
+</html>

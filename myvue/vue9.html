@@ -1,0 +1,45 @@
+<!-- emits用法 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="vue.js"></script>
+</head>
+<body>
+	<div id="app"></div>
+</body>
+<script>
+	vm = Vue.createApp({
+		data(){
+			return {
+				count:0
+			}
+		},
+		methods:{
+			addcount(arg){
+				this.count+=arg
+			}
+		},
+		template:`
+				<h3>这是父亲组件</h3>
+				<component1 v-bind:zicount="count" @add="addcount" />
+				`
+	})
+	vm.component('component1',{
+		props:['zicount'],
+		emits:['add'],
+		methods:{
+			button1(){
+				this.$emit('add',5)
+			}
+		},
+		template:`
+			<h4>这是全局子组件</h4>
+			<h1>{{zicount}}</h1>
+			<button @click="button1">点我</button>
+		`
+	})
+	vm.mount("#app")
+</script>
+</html>

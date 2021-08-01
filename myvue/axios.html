@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="../axios.js"></script>
+</head>
+<body>
+	
+</body>
+<script>
+ axios({
+ 	method:'GET',
+ 	// method:'POST',
+ 	url:"https://deluser.chuanyun101.com/index/",
+
+ 	// headers:{
+ 	// 	'content-type':'applicatioon/x-www-form-urlencoded',
+ 	// }
+ 	params:{
+ 		name:'meiyou'
+ 	}
+ }).then((res)=>{
+	console.log(res)
+ 	console.log("成功")
+ },(err)=>{
+ 	cosole.log(err)
+ 	console.log("失败")
+ })
+</script>
+</html>

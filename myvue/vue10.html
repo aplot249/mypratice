@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="vue.js"></script>
+</head>
+<body>
+	<div id="app"></div>
+</body>
+<script>
+	vm = Vue.createApp({
+		data(){
+			return {
+				name:'六四'
+			}
+		},
+		template:`
+			<h2>hhhhhhh</h2>
+			<component1>
+				<template v-slot:one></template>
+				<template v-slot:two>2222222</template>
+			</component1>	
+			<hr />
+			<component1></component1>	
+			<hr />
+			<component2 v-bind:myname="name" />
+		`,
+
+	}),
+
+	vm.component('component1',{
+		template: `
+			<div>
+				<slot name="one">8798798798</slot>	
+				<p>这是子元素的P元素</p>
+				<slot name="two">9890890809</slot>
+			</div>
+		`, 
+	}),
+
+	vm.component('component2',{
+		props:["myname"],
+		template: `
+			<div>
+				<p>我是{{myname}}</p>
+			</div>
+		`, 
+	}),
+	vm.mount("#app")
+</script>
+</html>

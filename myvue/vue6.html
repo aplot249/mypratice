@@ -1,0 +1,59 @@
+<!-- 全局组件使用 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="./vue.js"></script>
+</head>
+<body>
+	<div id="app">
+	</div>
+</body>
+<script>
+	vm = Vue.createApp({
+		data(){
+			return {
+				name:"liusrui"
+			}
+		},
+		methods:{
+			method1(){
+				alert("传递方法")
+			}
+		},
+		template:`
+			<h2>{{name}}</h2>
+			<component1 :tip1="method1" />
+			<component2 v-bind:tip2="name"/>
+		`,
+	}),
+	vm.component("component1",{
+		props:["tip1"],
+		provide:{
+			geisan:"给三"
+		},
+		methods:{
+			button5(){
+				this.tip1()
+			}
+		},
+		template:`
+			<h5>这是子元素1</h5>
+			<button @click="this.tip1()"></button>
+			<button @click="button5"></button>
+			<component3 tip3="ddd" />
+			`
+	}),
+	vm.component("component2",{
+		props:["tip2"],
+		template:"<h5>这是子元素2{{tip2}}</h5>"
+	}),
+	vm.component('component3',{
+		props:["tip3"],
+		inject:['geisan'],
+		template:"<h4>这是孙子组件{{tip3}}---{{geisan}}</h4>"
+	})
+	vm.mount("#app")
+</script>
+</html>

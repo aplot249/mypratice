@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+<script src="vue.js"></script>
+</head>
+<body>
+	<div id="app"></div>
+</body>
+<script>
+	vm = Vue.createApp({
+		data(){
+			return {
+				name:"小刘",
+				count:0,
+			}
+		},
+		methods:{
+			addcount(arg){
+				this.count+=arg
+			}
+		},
+		template:`
+			<h2>biaoti{{name}}</h2>
+			<component1 v-bind:ziname="name" :zicount="count" @add="addcount"/>
+		` 	
+	})
+	vm.component('component1',{
+		props:["ziname","zicount"],
+		emits:["add"],
+		methods:{
+			button1(){
+				alert("显示父类传过来的name："+this.ziname),
+				this.$emit('add',5)
+			},
+		},
+		template:`
+			<h5>这是count计数：{{zicount}}</h5>
+			<button v-on:click="button1">点我按钮</button>
+		`
+	})
+	vm.mount("#app")
+</script>
+</html>

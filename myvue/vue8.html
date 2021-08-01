@@ -1,0 +1,47 @@
+<!-- 全局组件使用 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="./vue.js"></script>
+</head>
+<body>
+	<div id="app"></div>
+</body>
+<script>
+	vm = Vue.createApp({
+		data(){
+			return {
+				name:"liusrui",
+				count:0
+			}
+		},
+		methods:{
+			addcount(arg){
+				this.count = this.count + arg
+			}
+		},
+		template:`
+			<h2>{{name}}</h2>
+			<component1 :mycount="count" @add="addcount"/>
+		`,
+	}),
+
+	vm.component("component1",{
+		props:["mycount"],
+		emits:["add"],
+		methods:{
+			button5(){
+				alert(this.mycount)
+				this.$emit("add",4)
+			},
+		},
+		template:`
+			<h5>这是{{mycount}}</h5>
+			<button @click="button5"></button>
+			`
+	})
+	vm.mount("#app")
+</script>
+</html>

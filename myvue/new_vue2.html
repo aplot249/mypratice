@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<ol>
+			<son v-bind:myll="ll" v-bind:myindex="index" v-for="(ll,index) in list" />
+		</ol>
+	</div>
+</body>
+<script>
+	const vm = Vue.createApp({
+		data(){
+			return {
+				list:[
+					{'a':"12322"},
+					{'b':"54545"},
+					{'c':"89897"},
+				]
+			}
+		},
+
+	})
+	vm.component('son',{
+		props:['index','myll'],
+		template:`<li >{{index}}---{{myll}}</li>`,
+	})
+	const app = vm.mount("#app")
+</script>
+</html>

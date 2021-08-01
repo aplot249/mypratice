@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="vue.js"></script>
+</head>
+<body>
+	<div id="app"></div>
+</body>
+<script>
+	vm = Vue.createApp({
+		data(){
+			return {
+				list:[1,2,3,4,5]
+			}
+		},
+		template:``
+	})
+	vm.component('component1',{
+		template:`<ul><li v-for="item in list">{{item}}</li></ul>`
+	})
+	vm.mount("#app")
+</script>
+</html>

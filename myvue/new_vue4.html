@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+<style>
+.red{
+	background-color: red;
+}
+.fs{
+	font-size: 50px;
+}
+</style>
+</head>
+<body>
+	<div id="app">
+<!-- 		<p v-bind:class="{'red':isactive,'fs':isactive}">{{name}}</p>
+		<p v-bind:class="['red','fs']">{{name}}</p> -->
+		<input type="text" @keyup="myclick($event)">
+		<input type="text" @keyup.enter="myclick($event)">	
+		<ul>
+			<li><input type="text" ref="age"></li>
+			<li><input type="text" v-model="myd"></li>
+		</ul>
+		<button @click="myclick">点我</button>
+	</div>
+</body>
+<script src="vue.js"></script>
+<script>
+vm = Vue.createApp({
+	data(){
+		return {
+			name:"六四",
+			isactive:true,
+			myd:''
+		}
+	},
+	methods:{
+		myclick(e){
+			console.log(e.keyCode),
+			console.log(this.$refs)
+			alert(this.myd)
+		}
+	}
+})
+vm.mount("#app")
+</script>
+</html>

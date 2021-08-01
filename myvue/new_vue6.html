@@ -1,0 +1,40 @@
+<!-- 计算属性和普通方法的区别 -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div id="app">
+		搜索框：<input type="text" v-model="searchdata">
+		<ul>
+			<li v-for="ll in search_handel">{{ll}}</li>
+		</ul>
+	</div>
+</body>
+<script src="vue.js"></script>
+<script>
+vm = Vue.createApp({
+	data(){
+		return {
+			searchdata:'',
+			list:['asd','gfh','vcn','esvcds','gry']
+		}
+	},
+	computed:{
+		search_handel(){
+			tmp_list = [],
+			this.list.forEach((val) => {
+				if(val.indexOf(this.searchdata) != -1){	//找到了
+					tmp_list.push(val)
+				}
+			})
+			return tmp_list
+		}
+	},
+
+})
+mm = vm.mount("#app")
+</script>
+</html>

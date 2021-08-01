@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="vue.js"></script>
+</head>
+<body>
+	<div id="app">
+			<h2 v-bind:title="name">{{name}}</h2>
+			<p v-show="show">xianshibu</p>
+			<ul>
+				<li v-for="val in list">{{val}}</li>
+			</ul>
+			<button v-on:click="button1">点我切换</button>
+			<son v-bind:name="name"/>
+	</div>	
+
+
+</body>
+<script>
+	const vm = Vue.createApp({
+		data(){
+			return {
+				name:"标题理论算法",
+				show:true,
+				list:['非官方的','恩我热无','人更广泛的','发送到发大水','是否单方是']
+			}
+		},
+		methods:{
+			button1(){
+				this.name = this.name != "jshdkj" ? "jshdkj":"精华可节点上"
+			}
+		}
+	})
+	vm.component('son',{
+		props:['name'],
+		template:`<h3 style="background-color:red">{{name}}</h3>`
+	})
+	vm.mount("#app")
+	console.log(vm.a)
+</script>
+</html>
